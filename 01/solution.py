@@ -38,4 +38,3 @@ if __name__ == '__main__':
 
     part1(arr)
     part2(arr)
-
