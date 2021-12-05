@@ -13,7 +13,7 @@ def part1(arr):
 
         prev = curr
 
-    print(f'part1: {increases}')
+    return increases
 
 def part2(arr):
     if len(arr) < 3:
@@ -30,11 +30,14 @@ def part2(arr):
 
         to_remove = int(arr[i - 2])
 
-    print(f'part2: {increases}')
+    return increases
 
 if __name__ == '__main__':
     with open('input', 'r') as f:
         arr = f.readlines()
 
-    part1(arr)
-    part2(arr)
+    part_one_results = part1(arr)
+    part_two_results = part2(arr)
+
+    print(f'part1: {part_one_results}')
+    print(f'part2: {part_two_results}')

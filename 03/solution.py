@@ -20,7 +20,7 @@ def part1(arr):
         gamma[i] = '0' if bit_zero_count[i] > bit_one_count[i] else '1'
         epsilon[i] = '1' if bit_zero_count[i] > bit_one_count[i] else '0'
 
-    print(f'part1: {int("".join(epsilon), 2) * int("".join(gamma), 2)}')
+    return int(''.join(epsilon), 2) * int(''.join(gamma), 2)
 
 def iteration(arr, iteration, is_o2_generation = False):
     if len(arr) <= 1:
@@ -55,11 +55,14 @@ def part2(arr):
         o2_generator_rating = iteration(o2_generator_rating, i, is_o2_generation = True)
         co2_scrubber_rating = iteration(co2_scrubber_rating, i)
 
-    print(f'part2: {int("".join(o2_generator_rating[0]), 2) * int("".join(co2_scrubber_rating[0]), 2)}')
+    return int(''.join(o2_generator_rating[0]), 2) * int(''.join(co2_scrubber_rating[0]), 2)
 
 if __name__ == '__main__':
     with open('input', 'r') as f:
         arr = f.readlines()
 
-    part1(arr)
-    part2(arr)
+    part_one_results = part1(arr)
+    part_two_results = part2(arr)
+
+    print(f'part1: {part_one_results}')
+    print(f'part2: {part_two_results}')

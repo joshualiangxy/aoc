@@ -87,5 +87,8 @@ if __name__ == '__main__':
                 grids[-1].add_row(line, row)
                 row += 1
 
-    print(f'part1: {part1(deepcopy(grids), deepcopy(drawn_numbers))}')
-    print(f'part2: {part2(deepcopy(grids), deepcopy(drawn_numbers))}')
+    part_one_results = part1(deepcopy(grids), deepcopy(drawn_numbers))
+    part_two_results = part2(deepcopy(grids), deepcopy(drawn_numbers))
+
+    print(f'part1: {part_one_results}')
+    print(f'part2: {part_two_results}')

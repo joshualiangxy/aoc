@@ -19,7 +19,7 @@ def part1(arr):
         else:
             depth += directions[direction] * magnitude
 
-    print(f'part1: {horizontal * depth}')
+    return horizontal * depth
 
 def part2(arr):
     if len(arr) < 1:
@@ -44,11 +44,14 @@ def part2(arr):
         else:
             aim += directions[direction] * magnitude
 
-    print(f'part2: {horizontal * depth}')
+    return horizontal * depth
 
 if __name__ == '__main__':
     with open('input', 'r') as f:
         arr = f.readlines()
 
-    part1(arr)
-    part2(arr)
+    part_one_results = part1(arr)
+    part_two_results = part2(arr)
+
+    print(f'part1: {part_one_results}')
+    print(f'part2: {part_two_results}')
