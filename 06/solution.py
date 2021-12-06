@@ -1,44 +1,29 @@
 from collections import deque
-from copy import deepcopy
 
-def part1(lanternfish_timers):
+def main(lanternfish_timers):
     timers = deque([0] * 9)
-    total = 0
+    part1 = 0
+    part2 = 0
 
     for timer in lanternfish_timers:
         timers[timer] += 1
-        total += 1
+        part2 += 1
 
-    for _ in range(80):
+    for day in range(256):
+        if day == 80:
+            part1 = part2
         birthing_fish = timers.popleft()
         timers.append(birthing_fish)
         timers[6] += birthing_fish
-        total += birthing_fish
+        part2 += birthing_fish
 
-    return total
-
-def part2(lanternfish_timers):
-    timers = deque([0] * 9)
-    total = 0
-
-    for timer in lanternfish_timers:
-        timers[timer] += 1
-        total += 1
-
-    for _ in range(256):
-        birthing_fish = timers.popleft()
-        timers.append(birthing_fish)
-        timers[6] += birthing_fish
-        total += birthing_fish
-
-    return total
+    return part1, part2
 
 if __name__ == '__main__':
     with open('input', 'r') as f:
         lanternfish_timers = map(lambda x: int(x), f.readline().split(','))
 
-    part_one_results = part1(deepcopy(lanternfish_timers))
-    part_two_results = part2(deepcopy(lanternfish_timers))
+    part1, part2 = main(lanternfish_timers)
 
-    print(f'part1: {part_one_results}')
-    print(f'part2: {part_two_results}')
+    print(f'part1: {part1}')
+    print(f'part2: {part2}')
