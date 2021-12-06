@@ -26,11 +26,11 @@ def part1(coords, grid, results = 0):
 
     return results
 
-def part2(arr, grid, results = 0):
-    if len(arr) < 1:
+def part2(coords, grid, results = 0):
+    if len(coords) < 1:
         return
 
-    for coord_one, coord_two in arr:
+    for coord_one, coord_two in coords:
         x1, y1 = coord_one
         x2, y2 = coord_two
 
