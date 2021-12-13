@@ -1,20 +1,21 @@
 from copy import deepcopy
 
+dirs = [
+    [-1, -1],
+    [-1, 0],
+    [-1, 1],
+    [0, -1],
+    [0, 1],
+    [1, -1],
+    [1, 0],
+    [1, 1]
+]
+
 def flash(octopi, visited, i, j):
     if visited[i][j]:
         return
 
     visited[i][j] = True
-    dirs = [
-        [-1, -1],
-        [-1, 0],
-        [-1, 1],
-        [0, -1],
-        [0, 1],
-        [1, -1],
-        [1, 0],
-        [1, 1]
-    ]
 
     for dir in dirs:
         row_idx = i + dir[0]
