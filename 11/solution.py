@@ -38,7 +38,7 @@ def step(octopi):
     for row in octopi:
         for i in range(len(row)):
             row[i] += 1
-    
+
     for i in range(len(octopi)):
         row = octopi[i]
 

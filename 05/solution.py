@@ -55,10 +55,7 @@ def part2(coords, grid, results = 0):
 
 if __name__ == '__main__':
     coords = []
-    grid = []
-
-    for _ in range(1000):
-        grid.append([0] * 1000)
+    grid = [[0] * 1000 for _ in range(1000)]
 
     with open('input', 'r') as f:
         for line in f:

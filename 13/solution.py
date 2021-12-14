@@ -7,7 +7,7 @@ def fold_horizontally(paper, pos):
     while pos - i >= 0 and pos + i < len(paper):
         paper[pos - i] = list(map(lambda t: t[0] or t[1], zip(paper[pos - i], paper[pos + i])))
         i += 1
-    
+
     return paper[:pos]
 
 def fold_vertically(paper, pos):

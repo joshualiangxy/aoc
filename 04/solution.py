@@ -2,12 +2,9 @@ from copy import deepcopy
 
 class Grid:
     def __init__(self):
-        self.__grid = []
+        self.__grid = [[False] * 5 for _ in range(5)]
         self.__coords = {}
         self.__score_sum = 0
-
-        for _ in range(5):
-            self.__grid.append([False] * 5)
 
     def add_row(self, row, row_index):
         arr = row.split()

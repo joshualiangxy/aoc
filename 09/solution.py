@@ -41,13 +41,8 @@ def find_size(grid, visited, i, j):
         + find_size(grid, visited, i, j + 1)
 
 def part2(grid):
-    visited = []
+    visited = [[False] * len(grid[i]) for i in range(len(grid))]
     pq = []
-
-    for i in range(len(grid)):
-        row = grid[i]
-
-        visited.append([False] * len(row))
 
     for i in range(len(grid)):
         row = grid[i]
