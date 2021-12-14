@@ -1,5 +1,5 @@
 def format_paper(paper, spaces = ' '):
-    return '\n'.join(list(map(lambda row: ''.join(list(map(lambda e: '#' if e else spaces, row))), paper)))
+    return '\n'.join(map(lambda row: ''.join(map(lambda e: '█' if e else spaces, row)), paper))
 
 def fold_horizontally(paper, pos):
     i = 1
