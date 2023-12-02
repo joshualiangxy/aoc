@@ -1,18 +1,16 @@
 use camino::Utf8PathBuf;
-use std::fs::read_to_string;
-use std::{env::current_dir, path::PathBuf};
-
 use clap::{Parser, Subcommand};
+use std::{env::current_dir, fs::read_to_string, path::PathBuf};
 
 #[derive(Debug, Parser)]
 #[clap(name = "q01", version)]
 struct App {
     #[clap(subcommand)]
-    subcommands: SubCommands,
+    parts: Parts,
 }
 
 #[derive(Debug, Subcommand)]
-enum SubCommands {
+enum Parts {
     /// Problem for part 1
     P1 {
         /// The path to read from
@@ -28,6 +26,7 @@ enum SubCommands {
 fn part1(full_path: PathBuf) -> std::io::Result<()> {
     let input = read_to_string(full_path)?;
     let mut total: u32 = 0;
+
     for line in input.split("\n") {
         let line = line.trim();
         if line.is_empty() {
@@ -110,26 +109,33 @@ fn part2(full_path: PathBuf) -> std::io::Result<()> {
                 let mut chars = line.chars();
 
                 match (first_digit, last_digit) {
-                    (Some(_first_digit), Some(_last_digit)) => (),
-                    (Some(_first_digit), None) => {
-                        last_digit = chars.nth(last_pos).and_then(|c| c.to_digit(10));
+                    (Some(first_digit), Some(last_digit)) => total += first_digit * 10 + last_digit,
+                    (Some(first_digit), None) => {
+                        let last_digit = chars.nth(last_pos).and_then(|c| c.to_digit(10)).unwrap();
+
+                        total += first_digit * 10 + last_digit;
                     }
-                    (None, Some(_last_digit)) => {
-                        first_digit = chars.nth(first_pos).and_then(|c| c.to_digit(10));
+                    (None, Some(last_digit)) => {
+                        let first_digit =
+                            chars.nth(first_pos).and_then(|c| c.to_digit(10)).unwrap();
+
+                        total += first_digit * 10 + last_digit;
                     }
                     (None, None) => {
-                        first_digit = chars.nth(first_pos).and_then(|c| c.to_digit(10));
-                        last_digit = if first_pos == last_pos {
+                        let first_digit =
+                            chars.nth(first_pos).and_then(|c| c.to_digit(10)).unwrap();
+                        let last_digit = if first_pos == last_pos {
                             first_digit
                         } else {
                             chars
                                 .nth(last_pos - first_pos - 1)
                                 .and_then(|c| c.to_digit(10))
+                                .unwrap()
                         };
+
+                        total += first_digit * 10 + last_digit;
                     }
                 }
-
-                total += first_digit.unwrap() * 10 + last_digit.unwrap();
             }
             _ => unreachable!("Should never happen"),
         }
@@ -142,15 +148,17 @@ fn part2(full_path: PathBuf) -> std::io::Result<()> {
 fn main() -> std::io::Result<()> {
     let args = App::parse();
     let current_dir = current_dir()?;
-    match args.subcommands {
-        SubCommands::P1 { path } => {
+
+    match args.parts {
+        Parts::P1 { path } => {
             let full_path = current_dir.join(path);
             part1(full_path)?;
         }
-        SubCommands::P2 { path } => {
+        Parts::P2 { path } => {
             let full_path = current_dir.join(path);
             part2(full_path)?;
         }
     }
+
     Ok(())
 }
