@@ -32,12 +32,11 @@ fn part1(full_path: PathBuf) -> std::io::Result<()> {
         let (_, line) = line.split_once(": ").unwrap();
         let (winning_nums_str, nums_str) = line.split_once(" | ").unwrap();
         let mut maybe_points = None;
-
-        let winning_nums = winning_nums_str
+        let winning_nums: HashSet<u32> = winning_nums_str
             .trim()
             .split(' ')
             .filter_map(|num_str| num_str.parse::<u32>().ok())
-            .collect::<HashSet<u32>>();
+            .collect();
 
         nums_str
             .trim()
@@ -71,22 +70,23 @@ fn part2(full_path: PathBuf) -> std::io::Result<()> {
         let (_, line) = line.split_once(": ").unwrap();
         let (winning_nums_str, nums_str) = line.split_once(" | ").unwrap();
         let mut num_matches = 0;
+
         if card_num >= card_multipliers.len() {
             card_multipliers.push(1);
         } else {
             card_multipliers[card_num] += 1;
         }
 
-        let winning_nums = winning_nums_str
+        let winning_nums: HashSet<u32> = winning_nums_str
             .trim()
-            .split(' ')
-            .filter_map(|num_str| num_str.parse::<u32>().ok())
-            .collect::<HashSet<u32>>();
+            .split_ascii_whitespace()
+            .map(|num_str| num_str.parse::<u32>().unwrap())
+            .collect();
 
         nums_str
             .trim()
-            .split(' ')
-            .filter_map(|num_str| num_str.parse::<u32>().ok())
+            .split_ascii_whitespace()
+            .map(|num_str| num_str.parse::<u32>().unwrap())
             .for_each(|num| {
                 if winning_nums.contains(&num) {
                     num_matches += 1;
