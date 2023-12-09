@@ -158,7 +158,7 @@ impl Ord for P1Hand {
             | (P1Hand::TwoPair { cards: c0 }, P1Hand::TwoPair { cards: c1 })
             | (P1Hand::OnePair { cards: c0 }, P1Hand::OnePair { cards: c1 })
             | (P1Hand::HighCard { cards: c0 }, P1Hand::HighCard { cards: c1 }) => {
-                compare_p1_hands(c0, c1)
+                compare_vecs(c0, c1)
             }
             (P1Hand::FiveOfAKind { .. }, _) => Ordering::Greater,
             (_, P1Hand::FiveOfAKind { .. }) => Ordering::Less,
@@ -210,17 +210,6 @@ impl P1Hand {
     }
 }
 
-fn compare_p1_hands(first: &Vec<P1Card>, second: &Vec<P1Card>) -> Ordering {
-    first
-        .iter()
-        .zip(second.iter())
-        .find_map(|(f, s)| match f.cmp(s) {
-            Ordering::Equal => None,
-            order => Some(order),
-        })
-        .unwrap_or(Ordering::Equal)
-}
-
 #[derive(Debug, Eq, PartialEq)]
 enum P2Hand {
     FiveOfAKind { cards: Vec<P2Card> },
@@ -248,7 +237,7 @@ impl Ord for P2Hand {
             | (P2Hand::TwoPair { cards: c0 }, P2Hand::TwoPair { cards: c1 })
             | (P2Hand::OnePair { cards: c0 }, P2Hand::OnePair { cards: c1 })
             | (P2Hand::HighCard { cards: c0 }, P2Hand::HighCard { cards: c1 }) => {
-                compare_p2_hands(c0, c1)
+                compare_vecs(c0, c1)
             }
             (P2Hand::FiveOfAKind { .. }, _) => Ordering::Greater,
             (_, P2Hand::FiveOfAKind { .. }) => Ordering::Less,
@@ -341,7 +330,7 @@ impl P2Hand {
     }
 }
 
-fn compare_p2_hands(first: &Vec<P2Card>, second: &Vec<P2Card>) -> Ordering {
+fn compare_vecs<T: Ord>(first: &Vec<T>, second: &Vec<T>) -> Ordering {
     first
         .iter()
         .zip(second.iter())
