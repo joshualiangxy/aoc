@@ -3,7 +3,7 @@ use clap::{Parser, Subcommand};
 use std::{env::current_dir, fs::read_to_string, path::PathBuf};
 
 #[derive(Debug, Parser)]
-#[clap(name = "q04", version)]
+#[clap(name = "q06", version)]
 struct App {
     #[clap(subcommand)]
     parts: Parts,
